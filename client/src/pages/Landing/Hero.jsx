@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import Button from "../../components/ui/Button";
+import DashboardPreview from "./DashboardPreview";
 
 const Hero = () => {
   return (
@@ -62,6 +63,8 @@ const Hero = () => {
             Explore Problems
           </Button>
         </motion.div>
+
+        <DashboardPreview />
 
       </div>
     </section>
