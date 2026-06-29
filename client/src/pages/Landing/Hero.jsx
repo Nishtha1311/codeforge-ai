@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import Button from "../../components/ui/Button";
 import DashboardPreview from "./DashboardPreview";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+
+    const navigate = useNavigate();
   return (
     <section className="relative overflow-hidden bg-[#09090B] pt-36 pb-24">
       {/* Background Glow */}
@@ -52,16 +55,20 @@ const Hero = () => {
           transition={{ delay: 0.6 }}
           className="mt-12 flex gap-5"
         >
-          <Button size="lg">
-            Get Started
-          </Button>
+         <Button
+  size="lg"
+  onClick={() => navigate("/register")}
+>
+  Get Started
+</Button>
 
-          <Button
-            size="lg"
-            variant="outline"
-          >
-            Explore Problems
-          </Button>
+<Button
+  size="lg"
+  variant="outline"
+  onClick={() => navigate("/login")}
+>
+  Login
+</Button>
         </motion.div>
 
         <DashboardPreview />

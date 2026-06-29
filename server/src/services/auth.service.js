@@ -68,3 +68,13 @@ export const loginUserService = async ({ email, password }) => {
     accessToken,
   };
 };
+
+export const getCurrentUserService = async (userId) => {
+  const user = await User.findById(userId).select("-password");
+
+  if (!user) {
+    throw new ApiError(404, "User not found.");
+  }
+
+  return user;
+};
