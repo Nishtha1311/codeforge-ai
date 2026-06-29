@@ -37,3 +37,34 @@ export const registerUserService = async ({
     email: user.email,
   };
 };
+
+export const loginUserService = async ({ email, password }) => {
+  if (!email || !password) {
+    throw new ApiError(400, "Email and password are required.");
+  }
+
+  const user = await User.findOne({ email }).select("+password");
+
+  if (!user) {
+    throw new ApiError(401, "Invalid email or password.");
+  }
+
+  const isPasswordCorrect = await user.comparePassword(password);
+
+  if (!isPasswordCorrect) {
+    throw new ApiError(401, "Invalid email or password.");
+  }
+
+  const accessToken = user.generateAccessToken();
+
+  return {
+    user: {
+      id: user._id,
+      fullName: user.fullName,
+      username: user.username,
+      email: user.email,
+      role: user.role,
+    },
+    accessToken,
+  };
+};
