@@ -19,8 +19,9 @@ export const loginUser = asyncHandler(async (req, res) => {
 
  const options = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  secure: true,
+  sameSite: "none",
+  maxAge: 7 * 24 * 60 * 60 * 1000,
 };
 
   return res
@@ -46,8 +47,8 @@ export const getCurrentUser = asyncHandler(async (req, res) => {
 export const logoutUser = async (req, res) => {
  const options = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  secure: true,
+  sameSite: "none",
 };
 
   return res
