@@ -145,63 +145,7 @@ const problems = [
     dislikes: 900,
   },
 
-  {
-  title: "Reverse Linked List",
-
-  slug: "reverse-linked-list",
-
-  functionName: "reverseList",
-
-  difficulty: "Easy",
-
-  tags: ["Linked List"],
-
-  description:
-    "Given the head of a singly linked list, reverse the list and return the reversed list.",
-
-  examples: [
-    {
-      input: "head=[1,2,3,4,5]",
-      output: "[5,4,3,2,1]",
-      explanation: "Reverse the linked list.",
-    },
-  ],
-
-  constraints: [
-    "The number of nodes is in the range [0,5000].",
-  ],
-
-  starterCode: {
-    javascript: `function reverseList(head){
-
-}`,
-  },
-
-  sampleTestCases: [
-    {
-      input: "[1,2,3,4,5]",
-      output: "[5,4,3,2,1]",
-    },
-  ],
-
-  hiddenTestCases: [
-    {
-      input: "[1,2]",
-      output: "[2,1]",
-    },
-    {
-      input: "[]",
-      output: "[]",
-    },
-  ],
-
-  acceptanceRate: 76,
-
-  likes: 21000,
-
-  dislikes: 500,
-},
-
+  
 {
   title: "Maximum Subarray",
 
@@ -489,62 +433,6 @@ const problems = [
   likes: 22000,
 
   dislikes: 800,
-},
-{
-  title: "Merge Two Sorted Lists",
-
-  slug: "merge-two-sorted-lists",
-
-  functionName: "mergeTwoLists",
-
-  difficulty: "Easy",
-
-  tags: ["Linked List"],
-
-  description:
-    "Merge two sorted linked lists and return the merged sorted list.",
-
-  examples: [
-    {
-      input: "list1=[1,2,4], list2=[1,3,4]",
-      output: "[1,1,2,3,4,4]",
-      explanation: "Merge both sorted lists.",
-    },
-  ],
-
-  constraints: [
-    "The number of nodes in both lists is in the range [0,50].",
-  ],
-
-  starterCode: {
-    javascript: `function mergeTwoLists(list1, list2){
-
-}`,
-  },
-
-  sampleTestCases: [
-    {
-      input: "[1,2,4],[1,3,4]",
-      output: "[1,1,2,3,4,4]",
-    },
-  ],
-
-  hiddenTestCases: [
-    {
-      input: "[],[]",
-      output: "[]",
-    },
-    {
-      input: "[],[0]",
-      output: "[0]",
-    },
-  ],
-
-  acceptanceRate: 65,
-
-  likes: 21000,
-
-  dislikes: 900,
 },
 
 {
