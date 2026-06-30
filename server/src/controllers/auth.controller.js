@@ -17,11 +17,11 @@ export const registerUser = asyncHandler(async (req, res) => {
 export const loginUser = asyncHandler(async (req, res) => {
   const { user, accessToken } = await loginUserService(req.body);
 
-  const options = {
-    httpOnly: true,
-    secure: false, // Change to true after deploying with HTTPS
-    sameSite: "lax",
-  };
+ const options = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+};
 
   return res
     .status(200)
@@ -44,11 +44,11 @@ export const getCurrentUser = asyncHandler(async (req, res) => {
 });
 
 export const logoutUser = async (req, res) => {
-  const options = {
-    httpOnly: true,
-    secure: false, // change to true after HTTPS deployment
-    sameSite: "lax",
-  };
+ const options = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+};
 
   return res
     .clearCookie("accessToken", options)
