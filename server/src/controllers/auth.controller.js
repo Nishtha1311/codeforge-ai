@@ -42,3 +42,19 @@ export const getCurrentUser = asyncHandler(async (req, res) => {
     })
   );
 });
+
+export const logoutUser = async (req, res) => {
+  const options = {
+    httpOnly: true,
+    secure: false, // change to true after HTTPS deployment
+    sameSite: "lax",
+  };
+
+  return res
+    .clearCookie("accessToken", options)
+    .status(200)
+    .json({
+      success: true,
+      message: "Logged out successfully.",
+    });
+};

@@ -6,6 +6,9 @@ import Login from "../pages/Auth/Login";
 import Dashboard from "../pages/Dashboard/Dashboard";
 
 import ProtectedRoute from "./ProtectedRoute";
+import Problems from "../pages/Problems/Problems";
+import ProblemDetails from "../pages/ProblemDetails/ProblemDetails";
+import SubmissionHistory from "../pages/submissions/SubmissionHistory";
 
 const AppRoutes = () => {
   return (
@@ -26,7 +29,36 @@ const AppRoutes = () => {
         }
       />
 
+      <Route
+  path="/problems"
+  element={
+    <ProtectedRoute>
+      <Problems />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/problems/:slug"
+  element={
+    <ProtectedRoute>
+      <ProblemDetails />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/submissions"
+  element={
+    <ProtectedRoute>
+      <SubmissionHistory />
+    </ProtectedRoute>
+  }
+/>
+
     </Routes>
+
+   
   );
 };
 

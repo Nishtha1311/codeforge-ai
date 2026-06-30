@@ -1,194 +1,124 @@
-import { useAuth } from "../../context/AuthContext";
-import {
-  Flame,
-  Trophy,
-  Brain,
-  CheckCircle,
-  ArrowRight,
-} from "lucide-react";
+import { useEffect, useState } from "react";
+import AppLayout from "../../components/layout/AppLayout";
+import StatsCard from "../../components/dashboard/StatsCard";
+import { getDashboardStats } from "../../services/dashboardService";
 
 const Dashboard = () => {
-  const { user } = useAuth();
+  const [stats, setStats] = useState(null);
+
+  useEffect(() => {
+    fetchStats();
+  }, []);
+
+  const fetchStats = async () => {
+    try {
+      const response = await getDashboardStats();
+      setStats(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  if (!stats) {
+    return (
+      <AppLayout>
+        <h1 className="text-3xl font-bold">Loading Dashboard...</h1>
+      </AppLayout>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-[#09090B] text-white">
+    <AppLayout>
+      {/* Welcome */}
 
-      {/* Navbar */}
+      <div className="mb-10">
+        <h1 className="text-4xl font-bold text-white">
+          Dashboard
+        </h1>
 
-      <header className="border-b border-white/10 bg-[#0F0F12]">
+        <p className="text-gray-400 mt-2">
+          Track your coding progress and performance.
+        </p>
+      </div>
 
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-8 py-5">
+      {/* Stats */}
 
-          <h1 className="text-2xl font-bold">
-            CodeForge AI
-          </h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-6">
 
-          <div className="flex items-center gap-3">
+        <StatsCard
+          title="Total Problems"
+          value={stats.totalProblems}
+          color="text-cyan-400"
+        />
 
-            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 flex items-center justify-center font-bold">
-              {user?.fullName?.charAt(0)}
-            </div>
+        <StatsCard
+          title="Solved Problems"
+          value={stats.solvedProblems}
+          color="text-green-400"
+        />
 
-            <div>
-              <p className="font-semibold">{user?.fullName}</p>
-              <p className="text-gray-400 text-sm">{user?.email}</p>
-            </div>
+        <StatsCard
+          title="Accepted"
+          value={stats.accepted}
+          color="text-emerald-400"
+        />
 
-          </div>
+        <StatsCard
+          title="Wrong Answers"
+          value={stats.wrongAnswers}
+          color="text-red-400"
+        />
 
-        </div>
+        <StatsCard
+          title="Acceptance"
+          value={`${stats.acceptanceRate}%`}
+          color="text-yellow-400"
+        />
 
-      </header>
+      </div>
 
-      {/* Main */}
+      {/* Summary */}
 
-      <main className="max-w-7xl mx-auto px-8 py-10">
+      <div className="mt-10 rounded-2xl bg-[#18181B] border border-white/10 p-8">
 
-        {/* Welcome */}
+        <h2 className="text-2xl font-bold mb-4">
+          📈 Performance Summary
+        </h2>
 
-        <div className="flex justify-between items-center mb-10">
+        <div className="space-y-3 text-gray-300">
 
-          <div>
+          <p>
+            <span className="font-semibold text-white">
+              Total Submissions:
+            </span>{" "}
+            {stats.totalSubmissions}
+          </p>
 
-            <h2 className="text-5xl font-bold">
-              Welcome back 👋
-            </h2>
+          <p>
+            <span className="font-semibold text-white">
+              Accepted Solutions:
+            </span>{" "}
+            {stats.accepted}
+          </p>
 
-            <p className="mt-3 text-gray-400 text-lg">
-              Ready to solve your next coding challenge?
-            </p>
+          <p>
+            <span className="font-semibold text-white">
+              Wrong Answers:
+            </span>{" "}
+            {stats.wrongAnswers}
+          </p>
 
-          </div>
-
-          <button className="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 transition">
-            Solve Problems
-          </button>
-
-        </div>
-
-        {/* Cards */}
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-          <div className="rounded-2xl bg-[#15151A] p-6 border border-white/10">
-
-            <CheckCircle className="text-green-400 mb-4" size={34} />
-
-            <p className="text-gray-400">Problems Solved</p>
-
-            <h3 className="text-4xl font-bold mt-2">0</h3>
-
-          </div>
-
-          <div className="rounded-2xl bg-[#15151A] p-6 border border-white/10">
-
-            <Flame className="text-orange-400 mb-4" size={34} />
-
-            <p className="text-gray-400">Current Streak</p>
-
-            <h3 className="text-4xl font-bold mt-2">0</h3>
-
-          </div>
-
-          <div className="rounded-2xl bg-[#15151A] p-6 border border-white/10">
-
-            <Brain className="text-indigo-400 mb-4" size={34} />
-
-            <p className="text-gray-400">AI Sessions</p>
-
-            <h3 className="text-4xl font-bold mt-2">0</h3>
-
-          </div>
-
-          <div className="rounded-2xl bg-[#15151A] p-6 border border-white/10">
-
-            <Trophy className="text-yellow-400 mb-4" size={34} />
-
-            <p className="text-gray-400">Contest Rating</p>
-
-            <h3 className="text-4xl font-bold mt-2">1200</h3>
-
-          </div>
+          <p>
+            <span className="font-semibold text-white">
+              Acceptance Rate:
+            </span>{" "}
+            {stats.acceptanceRate}%
+          </p>
 
         </div>
 
-        {/* Bottom */}
-
-        <div className="grid lg:grid-cols-2 gap-8 mt-10">
-
-          {/* Recent */}
-
-          <div className="rounded-2xl bg-[#15151A] border border-white/10 p-8">
-
-            <h2 className="text-2xl font-semibold mb-6">
-              Recent Activity
-            </h2>
-
-            <div className="space-y-5">
-
-              <div className="flex justify-between items-center">
-
-                <div>
-
-                  <h3 className="font-semibold">
-                    No submissions yet
-                  </h3>
-
-                  <p className="text-gray-400 text-sm">
-                    Solve your first problem today.
-                  </p>
-
-                </div>
-
-                <ArrowRight />
-
-              </div>
-
-            </div>
-
-          </div>
-
-          {/* AI */}
-
-          <div className="rounded-2xl bg-gradient-to-r from-indigo-600 to-cyan-600 p-8">
-
-            <h2 className="text-2xl font-bold">
-              🤖 AI Coach
-            </h2>
-
-            <p className="mt-4 leading-8">
-
-              Ask AI for:
-
-              <br />
-
-              • Hints
-
-              <br />
-
-              • Debugging
-
-              <br />
-
-              • Complexity Analysis
-
-              <br />
-
-              • Interview Preparation
-
-            </p>
-
-            <button className="mt-8 bg-white text-black px-6 py-3 rounded-xl font-semibold hover:scale-105 transition">
-              Start AI Session
-            </button>
-
-          </div>
-
-        </div>
-
-      </main>
-
-    </div>
+      </div>
+    </AppLayout>
   );
 };
 
